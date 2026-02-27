@@ -11,22 +11,38 @@
         padding: 0;
       }
 
+      /* --- Layout Components --- */
       .spacer {
         height: 1rem;
       }
 
+      .nav-overlay {
+        position: fixed;
+        inset: 0; /* Shorthand for top, left, width, height */
+        background-color: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 1500;
+      }
+
+      .nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* --- Navigation Bar --- */
       #top-nav {
-        box-sizing: border-box;
         background-color: rgb(33, 34, 36);
         border-bottom: 1px solid #444;
-        min-width: 375px;
-        height: 56px;
         width: 100%;
+        height: 56px;
         position: sticky;
         top: 0;
-        z-index: 1000;
+        z-index: 2000;
         display: flex;
         align-items: center;
+        transition: all 0.3s ease;
       }
 
       #top-nav .nav-container {
@@ -35,7 +51,7 @@
         align-items: center;
         margin: 0 auto;
         width: 100%;
-        padding: 0 32px;
+        padding: 0 1rem;
         height: 100%;
       }
 
@@ -45,75 +61,166 @@
         font-size: 1.125rem;
         color: #fff;
         text-decoration: none;
+        transition: color 0.3s ease;
       }
 
+      #top-nav .menu-toggle {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        width: 30px;
+        transition: color 0.3s ease;
+      }
+
+      /* --- Dimmed State Logic --- */
+      #top-nav.dimmed {
+        background-color: rgba(20, 20, 21, 1);
+        border-bottom-color: #222;
+      }
+
+      #top-nav.dimmed .logo,
+      #top-nav.dimmed .menu-toggle {
+        color: #555;
+      }
+
+      /* --- Mobile Drawer --- */
       #top-nav .nav-links {
+        position: fixed;
+        top: 0;
+        right: -110%;
+        width: 240px;
+        height: 100vh;
+        background-color: rgb(33, 34, 36);
         display: flex;
-        gap: 25px;
+        flex-direction: column;
+        padding: 1rem 1.25rem;
+        transition: right 0.3s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        z-index: 2001;
         list-style: none;
-        margin: 0;
-        padding: 0;
-        height: 100%;
+      }
+
+      #top-nav .nav-links.open {
+        right: 0;
+      }
+
+      #top-nav .menu-close {
+        display: flex;
+        align-self: flex-end;
+        margin-bottom: 1rem;
+        background: none;
+        border: none;
+        color: rgb(115, 115, 115);
+        cursor: pointer;
+        padding: 4px;
+        transition: all 0.2s ease;
+      }
+
+      #top-nav .menu-close svg {
+        width: 24px;
+        height: 24px;
+        stroke: currentColor;
+      }
+
+      #top-nav .menu-close:hover {
+        color: #fff;
+        transform: rotate(90deg);
       }
 
       #top-nav .nav-links li {
-        display: flex;
-        align-items: center;
+        margin-bottom: 0.75rem;
       }
 
       #top-nav .nav-links a {
         text-decoration: none;
         color: rgb(115, 115, 115);
-        font-family:
-          Arial,
-          sans-serif,
-          Helvetica Neue,
-          Helvetica;
-        font-size: 14px;
-        line-height: 14px;
-        transition: color 0.2s ease;
-        position: relative;
-        height: 100%;
+        font-family: Arial, sans-serif;
+        font-size: 0.95rem;
         text-transform: uppercase;
-      }
-
-      #top-nav .nav-links a {
         display: flex;
         align-items: center;
         gap: 6px;
-      }
-
-      #top-nav .external-icon {
-        width: 12px;
-        height: 12px;
-        transition: stroke 0.2s ease;
-        vertical-align: middle;
+        padding: 6px 0;
+        transition: color 0.2s ease;
+        position: relative;
       }
 
       #top-nav .nav-links a:hover,
       #top-nav .nav-links a.active {
-        color: rgb(255, 255, 255);
-        cursor: pointer;
+        color: #fff;
       }
 
       #top-nav .nav-links a::after {
         content: "";
         position: absolute;
         left: 0;
-        bottom: 1px;
+        bottom: 0;
         width: 100%;
-        height: 3px;
+        height: 2px;
         background-color: rgb(0, 119, 255);
         transform: scaleX(0);
         transition: transform 0.2s ease;
+        transform-origin: left;
       }
 
       #top-nav .nav-links a:hover::after,
       #top-nav .nav-links a.active::after {
-        transform: scaleX(1.3);
+        transform: scaleX(1);
+      }
+
+      #top-nav .external-icon {
+        width: 11px;
+        height: 11px;
+      }
+
+      /* --- Desktop View (768px+) --- */
+      @media (min-width: 768px) {
+        .nav-overlay,
+        #top-nav .menu-toggle,
+        #top-nav .menu-close {
+          display: none;
+        }
+
+        #top-nav .nav-container {
+          padding: 0 2rem;
+        }
+
+        #top-nav .nav-links {
+          position: static;
+          width: auto;
+          height: 100%;
+          flex-direction: row;
+          gap: 1.5625rem;
+          padding: 0;
+          background: none;
+          box-shadow: none;
+        }
+
+        #top-nav .nav-links li {
+          margin-bottom: 0;
+          display: flex;
+          align-items: center;
+        }
+
+        #top-nav .nav-links a {
+          font-size: 0.875rem;
+          height: 100%;
+        }
+
+        #top-nav .nav-links a::after {
+          height: 3px;
+          transform-origin: center;
+        }
+
+        #top-nav .nav-links a:hover::after,
+        #top-nav .nav-links a.active::after {
+          transform: scaleX(1.3);
+        }
       }
     </style>
     <style>
+      /* --- Carousel Container & Slide --- */
       .carousel-container {
         width: 600px;
         margin: auto;
@@ -124,13 +231,81 @@
       .carousel-slide {
         display: flex;
         transition: transform 0.5s ease-in-out;
+        align-items: stretch;
       }
 
-      .carousel-slide img {
+      .carousel-slide .carousel-content {
+        display: flex;
         width: 100%;
-        flex: 0 0 100%;
+        min-width: 100%;
+        align-items: flex-start;
+        box-sizing: border-box;
       }
 
+      .carousel-content:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+
+      /* --- Golden Ratio Split Elements --- */
+      .carousel-content img {
+        flex: 0 0 38.2%;
+        width: 38.2%;
+        height: 250px;
+        object-fit: cover;
+      }
+
+      .carousel-content .content-description {
+        flex: 0 0 61.8%;
+        width: 61.8%;
+        padding: 1.5rem;
+        box-sizing: border-box;
+        height: 250px;
+        overflow: hidden;
+        transition: height 0.4s ease;
+        position: relative;
+      }
+
+      .content-description.expanded {
+        height: auto;
+      }
+
+      .prj-desc {
+        padding-bottom: 3rem;
+      }
+
+      /* --- Overlay UI Elements --- */
+      .content-description:not(.expanded)::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background: linear-gradient(transparent, #ffffff);
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .prj-more {
+        position: absolute;
+        bottom: 1rem;
+        right: 1.5rem;
+        width: max-content;
+        background: black;
+        border: 1px solid #0077ff;
+        color: #0077ff;
+        padding: 5px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      }
+
+      .carousel-content:nth-child(even) .prj-more {
+        right: auto;
+        left: 1.5rem;
+      }
+
+      /* --- Navigation Buttons --- */
       .nav-btn {
         position: absolute;
         top: 50%;
@@ -167,12 +342,7 @@
         right: 0;
       }
 
-      #prevBtn {
-        left: 0;
-      }
-      #nextBtn {
-        right: 0;
-      }
+      /* --- Pagination Dots --- */
       .dots-container {
         position: absolute;
         bottom: 24px;
@@ -194,16 +364,46 @@
 
       .dot.active {
         background-color: #ffffff;
-        opacity: 1;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
       }
     </style>
   </head>
   <body>
+    <div class="nav-overlay" id="navOverlay"></div>
     <nav id="top-nav">
       <div class="nav-container">
         <div class="logo">JOVEN SANTOS</div>
-        <ul class="nav-links">
+
+        <button class="menu-toggle" id="menuOpen" aria-label="Open Menu">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <ul class="nav-links" id="navDrawer">
+          <button class="menu-close" id="menuClose" aria-label="Close Menu">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
           <li><a href="/" class="active">HOME</a></li>
           <li><a href="/projects">PROJECTS</a></li>
           <li>
@@ -251,10 +451,11 @@
     </nav>
     <section>
       <p>
-        I am Joven Christian D. Santos, a Junior Full-Stack Developer focused on
-        building complete web applications from start to testing. I can do a
-        professional job on either <strong>front-end</strong>,
-        <strong>back-end</strong>, and <strong>QA testing.</strong>
+        I am <strong>Joven Christian D. Santos</strong>, a
+        <strong>Junior Full-Stack Developer</strong> focused on building
+        complete web applications from start to testing. I can do a professional
+        job on either <strong>front-end</strong>, <strong>back-end</strong>, and
+        <strong>QA testing.</strong>
       </p>
     </section>
     <div class="spacer"></div>
@@ -271,9 +472,92 @@
     <section>
       <div class="carousel-container">
         <div class="carousel-slide">
-          <img src="o1.jpg" alt="1" />
-          <img src="o1.jpg" alt="2" />
-          <img src="o1.jpg" alt="3" />
+          <div class="carousel-content">
+            <img src="o1.jpg" alt="3" />
+            <div class="content-description">
+              <div class="prj-title">Example Title</div>
+              <div class="prj-btns">
+                <a href="" class="prj-read"></a>
+                <a href="" class="prj-live"></a>
+              </div>
+              <div class="prj-tags">
+                <span class="prj-cycle"></span>
+                <span class="prj-tech"></span>
+              </div>
+              <div class="prj-desc">Example Description</div>
+              <button class="prj-more">Show more</button>
+            </div>
+          </div>
+          <div class="carousel-content">
+            <img src="o1.jpg" alt="3" />
+            <div class="content-description">
+              <div class="prj-title">Example Title</div>
+              <div class="prj-btns">
+                <a href="" class="prj-read"></a>
+                <a href="" class="prj-live"></a>
+              </div>
+              <div class="prj-tags">
+                <span class="prj-cycle"></span>
+                <span class="prj-tech"></span>
+              </div>
+              <div class="prj-desc">Example Description</div>
+              <button class="prj-more">Show more</button>
+            </div>
+          </div>
+          <div class="carousel-content">
+            <img src="o1.jpg" alt="3" />
+            <div class="content-description">
+              <div class="prj-title">Example Title</div>
+              <div class="prj-btns">
+                <a href="" class="prj-read"></a>
+                <a href="" class="prj-live"></a>
+              </div>
+              <div class="prj-tags">
+                <span class="prj-cycle"></span>
+                <span class="prj-tech"></span>
+              </div>
+              <div class="prj-desc">
+                Example Description Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Voluptates reiciendis beatae quas officia
+                neque, sapiente vel deserunt corrupti ipsum facere nemo rerum
+                cupiditate commodi quos pariatur tempora aliquid saepe aperiam!
+                At mollitia laboriosam ex earum iusto, sapiente nemo cupiditate
+                cum molestiae, accusantium saepe enim debitis sint facere esse
+                veritatis porro explicabo distinctio ab quos modi obcaecati!
+                Amet quis voluptatum iusto? Neque quaerat dolor, reprehenderit
+                ea aut necessitatibus quis tempore est ipsa recusandae, expedita
+                accusantium maiores! Ipsa reiciendis, porro adipisci beatae,
+                tenetur nobis possimus illum provident voluptas eligendi tempora
+                earum harum? Delectus non quam dolorum debitis placeat nobis,
+                dignissimos voluptatibus dolor! Sunt rerum autem inventore
+                provident eligendi vitae, aliquid hic facere nulla assumenda
+                iusto sint iure eaque a. Aut, aperiam quo. Dolor suscipit
+                consequatur repellat pariatur ipsum a incidunt numquam nobis ex
+                dolorum. Velit distinctio cumque nostrum, ea, ut reiciendis quos
+                consequuntur enim, sit magnam impedit expedita iusto accusantium
+                eaque facilis. Cum, maiores unde. Atque voluptatibus omnis iste
+                doloremque, velit excepturi sunt iusto nemo explicabo, et
+                similique a alias repudiandae dolorem odio corporis quia quod ad
+                enim ducimus aperiam! Dolores, et. Numquam similique, minus ad
+                molestias facere alias aperiam iste perspiciatis assumenda rerum
+                enim. Aut esse laboriosam, possimus repudiandae provident
+                cupiditate velit quas expedita eveniet voluptatibus quasi
+                voluptas ex mollitia corrupti? Fugit totam perspiciatis qui,
+                repudiandae expedita vero sapiente consequuntur ipsa. Esse quam
+                architecto fuga veniam aut at quisquam nesciunt enim aperiam,
+                sed incidunt, veritatis neque impedit optio. Ad, vitae
+                recusandae. Officia in quis esse mollitia explicabo nostrum
+                deleniti a architecto aliquam fugiat praesentium magnam modi
+                iste adipisci repellendus illum molestias ex doloremque, nam
+                alias eius nobis sequi ipsa? Quis, cum? Cumque suscipit omnis
+                itaque dolorum. Nulla, reiciendis ea, eligendi deleniti
+                blanditiis excepturi dolorem dicta cupiditate, laboriosam unde
+                deserunt vero sint obcaecati ducimus voluptas impedit quibusdam
+                vitae vel necessitatibus et error!
+              </div>
+              <button class="prj-more">Show more</button>
+            </div>
+          </div>
         </div>
         <div class="dots-container">
           <div class="dot active"></div>
@@ -309,38 +593,93 @@
       </div>
     </section>
     <script>
+      const navDrawer = document.getElementById("navDrawer");
+      const navOverlay = document.getElementById("navOverlay");
+      const menuOpen = document.getElementById("menuOpen");
+      const menuClose = document.getElementById("menuClose");
+      const topNav = document.getElementById("top-nav"); // Targeted the navbar
+
+      const toggleMenu = (isOpen) => {
+        navDrawer.classList.toggle("open", isOpen);
+        navOverlay.classList.toggle("active", isOpen);
+
+        // Toggles the dimmed class to fade the logo/background
+        topNav.classList.toggle("dimmed", isOpen);
+
+        document.body.style.overflow = isOpen ? "hidden" : "";
+      };
+
+      menuOpen.addEventListener("click", () => toggleMenu(true));
+      menuClose.addEventListener("click", () => toggleMenu(false));
+      navOverlay.addEventListener("click", () => toggleMenu(false));
+
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => toggleMenu(false));
+      });
+    </script>
+    <script>
       const slide = document.querySelector(".carousel-slide");
-      const images = document.querySelectorAll(".carousel-slide img");
+      const contents = document.querySelectorAll(".carousel-content");
       const dots = document.querySelectorAll(".dot");
 
       let counter = 0;
-      const size = images[0].clientWidth;
 
       function updateCarousel() {
-        slide.style.transform = "translateX(" + -size * counter + "px)";
+        // 1. Reset all slides to original state before moving
+        document
+          .querySelectorAll(".content-description")
+          .forEach((container) => {
+            container.classList.remove("expanded");
+            container.style.height = "250px"; // Back to your original fixed height
+          });
 
+        // 2. Reset the "Show more" button text
+        document.querySelectorAll(".prj-more").forEach((btn) => {
+          btn.textContent = "Show more";
+        });
+
+        // 3. Perform the slide movement
+        const size = contents[0].clientWidth;
+        slide.style.transform = `translateX(${-size * counter}px)`;
+
+        // 4. Update dots
         dots.forEach((dot) => dot.classList.remove("active"));
-        dots[counter].classList.add("active");
+        if (dots[counter]) dots[counter].classList.add("active");
       }
 
+      // Next Button Logic
       document.getElementById("nextBtn").addEventListener("click", () => {
-        if (counter >= images.length - 1) {
-          counter = 0;
-        } else {
-          counter++;
-        }
+        counter = counter >= contents.length - 1 ? 0 : counter + 1;
         updateCarousel();
       });
 
+      // Prev Button Logic
       document.getElementById("prevBtn").addEventListener("click", () => {
-        if (counter <= 0) {
-          counter = images.length - 1;
-        } else {
-          counter--;
-        }
+        counter = counter <= 0 ? contents.length - 1 : counter - 1;
         updateCarousel();
       });
 
+      // Show More / Less Logic
+      document.querySelectorAll(".prj-more").forEach((button) => {
+        button.addEventListener("click", function () {
+          const container = this.closest(".content-description");
+
+          container.classList.toggle("expanded");
+          const isExpanded = container.classList.contains("expanded");
+
+          this.textContent = isExpanded ? "Show less" : "Show more";
+
+          if (isExpanded) {
+            container.style.height = container.scrollHeight + "px";
+          } else {
+            container.style.height = "250px";
+          }
+
+          // Note: We don't call updateCarousel() here because it would trigger the reset!
+        });
+      });
+
+      window.addEventListener("resize", updateCarousel);
       updateCarousel();
     </script>
   </body>
