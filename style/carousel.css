@@ -1,0 +1,266 @@
+#featured-projects .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+#featured-projects .section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #333;
+}
+
+#featured-projects .section-link {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+#featured-projects .section-link:hover {
+  text-decoration: underline;
+  color: rgb(0, 0, 0);
+}
+#featured-projects .external-icon {
+  width: 1em;
+  height: 1em;
+  margin-left: 0.4em;
+  flex-shrink: 0;
+  stroke-width: 2.5;
+}
+#featured-projects .carousel-container {
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+#featured-projects .carousel-slide {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  align-items: stretch;
+}
+
+#featured-projects .carousel-slide .carousel-content {
+  display: flex;
+  width: 100%;
+  min-width: 100%;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+#featured-projects .carousel-content:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+#featured-projects .prj-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+#featured-projects .carousel-content img {
+  flex: 0 0 38.2%;
+  width: 38.2%;
+  height: 250px;
+  object-fit: cover;
+}
+
+#featured-projects .prj-title a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+#featured-projects .prj-btns {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #000;
+  overflow: hidden;
+}
+
+#featured-projects .prj-btns a {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: bold;
+
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+#featured-projects .prj-read {
+  background-color: rgb(33, 34, 36);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+#featured-projects .prj-live {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  color: rgba(0, 0, 0, 0.8);
+}
+
+#featured-projects .prj-read:hover {
+  color: rgb(255, 255, 255);
+  text-decoration: underline;
+}
+
+#featured-projects .prj-live:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+#featured-projects .prj-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+#featured-projects .prj-tags span {
+  width: max-content;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  border: 1px solid black;
+}
+
+#featured-projects .prj-tags .prj-cycle {
+  border: 1px solid black;
+  background: #f9f9f9;
+}
+
+#featured-projects .prj-tags .prj-tech {
+  background-color: rgb(33, 34, 36);
+  color: #ffffff;
+}
+
+#featured-projects .prj-more {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.5rem;
+
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 0;
+
+  color: black;
+  padding: 2px 0;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  width: max-content;
+}
+
+#featured-projects .carousel-content .content-description {
+  flex: 0 0 61.8%;
+  width: 61.8%;
+  padding: 1rem;
+  box-sizing: border-box;
+  height: 250px;
+  overflow: hidden;
+  transition: height 0.4s ease;
+  position: relative;
+}
+
+#featured-projects .content-description.expanded {
+  height: auto;
+}
+
+#featured-projects .prj-desc {
+  padding-bottom: 3rem;
+}
+
+#featured-projects .content-description:not(.expanded)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(transparent, #ffffff);
+  z-index: 1;
+  pointer-events: none;
+}
+
+#featured-projects .carousel-content:nth-child(even) .prj-more {
+  right: auto;
+  left: 1.5rem;
+}
+
+#featured-projects .nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 10%;
+  width: 40px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.3s ease;
+  margin: 0 10px;
+}
+
+#featured-projects .nav-btn svg {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+}
+
+#featured-projects .nav-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+#featured-projects #prevBtn {
+  left: 0;
+}
+#featured-projects #nextBtn {
+  right: 0;
+}
+
+#featured-projects .dots-container {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+}
+
+#featured-projects .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+#featured-projects .dot.active {
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}

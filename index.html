@@ -4,369 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Featured Projects Section</title>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      /* --- Layout Components --- */
-      .spacer {
-        height: 1rem;
-      }
-
-      .nav-overlay {
-        position: fixed;
-        inset: 0; /* Shorthand for top, left, width, height */
-        background-color: rgba(0, 0, 0, 0.6);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease;
-        z-index: 1500;
-      }
-
-      .nav-overlay.active {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      /* --- Navigation Bar --- */
-      #top-nav {
-        background-color: rgb(33, 34, 36);
-        border-bottom: 1px solid #444;
-        width: 100%;
-        height: 56px;
-        position: sticky;
-        top: 0;
-        z-index: 2000;
-        display: flex;
-        align-items: center;
-        transition: all 0.3s ease;
-      }
-
-      #top-nav .nav-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0 auto;
-        width: 100%;
-        padding: 0 1rem;
-        height: 100%;
-      }
-
-      #top-nav .logo {
-        font-family: Arial, sans-serif;
-        font-weight: bold;
-        font-size: 1.125rem;
-        color: #fff;
-        text-decoration: none;
-        transition: color 0.3s ease;
-      }
-
-      #top-nav .menu-toggle {
-        background: none;
-        border: none;
-        color: white;
-        cursor: pointer;
-        width: 30px;
-        transition: color 0.3s ease;
-      }
-
-      /* --- Dimmed State Logic --- */
-      #top-nav.dimmed {
-        background-color: rgba(20, 20, 21, 1);
-        border-bottom-color: #222;
-      }
-
-      #top-nav.dimmed .logo,
-      #top-nav.dimmed .menu-toggle {
-        color: #555;
-      }
-
-      /* --- Mobile Drawer --- */
-      #top-nav .nav-links {
-        position: fixed;
-        top: 0;
-        right: -110%;
-        width: 240px;
-        height: 100vh;
-        background-color: rgb(33, 34, 36);
-        display: flex;
-        flex-direction: column;
-        padding: 1rem 1.25rem;
-        transition: right 0.3s ease-in-out;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-        z-index: 2001;
-        list-style: none;
-      }
-
-      #top-nav .nav-links.open {
-        right: 0;
-      }
-
-      #top-nav .menu-close {
-        display: flex;
-        align-self: flex-end;
-        margin-bottom: 1rem;
-        background: none;
-        border: none;
-        color: rgb(115, 115, 115);
-        cursor: pointer;
-        padding: 4px;
-        transition: all 0.2s ease;
-      }
-
-      #top-nav .menu-close svg {
-        width: 24px;
-        height: 24px;
-        stroke: currentColor;
-      }
-
-      #top-nav .menu-close:hover {
-        color: #fff;
-        transform: rotate(90deg);
-      }
-
-      #top-nav .nav-links li {
-        margin-bottom: 0.75rem;
-      }
-
-      #top-nav .nav-links a {
-        text-decoration: none;
-        color: rgb(115, 115, 115);
-        font-family: Arial, sans-serif;
-        font-size: 0.95rem;
-        text-transform: uppercase;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding: 6px 0;
-        transition: color 0.2s ease;
-        position: relative;
-      }
-
-      #top-nav .nav-links a:hover,
-      #top-nav .nav-links a.active {
-        color: #fff;
-      }
-
-      #top-nav .nav-links a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 2px;
-        background-color: rgb(0, 119, 255);
-        transform: scaleX(0);
-        transition: transform 0.2s ease;
-        transform-origin: left;
-      }
-
-      #top-nav .nav-links a:hover::after,
-      #top-nav .nav-links a.active::after {
-        transform: scaleX(1);
-      }
-
-      #top-nav .external-icon {
-        width: 11px;
-        height: 11px;
-      }
-
-      /* --- Desktop View (768px+) --- */
-      @media (min-width: 768px) {
-        .nav-overlay,
-        #top-nav .menu-toggle,
-        #top-nav .menu-close {
-          display: none;
-        }
-
-        #top-nav .nav-container {
-          padding: 0 2rem;
-        }
-
-        #top-nav .nav-links {
-          position: static;
-          width: auto;
-          height: 100%;
-          flex-direction: row;
-          gap: 1.5625rem;
-          padding: 0;
-          background: none;
-          box-shadow: none;
-        }
-
-        #top-nav .nav-links li {
-          margin-bottom: 0;
-          display: flex;
-          align-items: center;
-        }
-
-        #top-nav .nav-links a {
-          font-size: 0.875rem;
-          height: 100%;
-        }
-
-        #top-nav .nav-links a::after {
-          height: 3px;
-          transform-origin: center;
-        }
-
-        #top-nav .nav-links a:hover::after,
-        #top-nav .nav-links a.active::after {
-          transform: scaleX(1.3);
-        }
-      }
-    </style>
-    <style>
-      /* --- Carousel Container & Slide --- */
-      .carousel-container {
-        width: 600px;
-        margin: auto;
-        overflow: hidden;
-        position: relative;
-      }
-
-      .carousel-slide {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
-        align-items: stretch;
-      }
-
-      .carousel-slide .carousel-content {
-        display: flex;
-        width: 100%;
-        min-width: 100%;
-        align-items: flex-start;
-        box-sizing: border-box;
-      }
-
-      .carousel-content:nth-child(even) {
-        flex-direction: row-reverse;
-      }
-
-      /* --- Golden Ratio Split Elements --- */
-      .carousel-content img {
-        flex: 0 0 38.2%;
-        width: 38.2%;
-        height: 250px;
-        object-fit: cover;
-      }
-
-      .carousel-content .content-description {
-        flex: 0 0 61.8%;
-        width: 61.8%;
-        padding: 1.5rem;
-        box-sizing: border-box;
-        height: 250px;
-        overflow: hidden;
-        transition: height 0.4s ease;
-        position: relative;
-      }
-
-      .content-description.expanded {
-        height: auto;
-      }
-
-      .prj-desc {
-        padding-bottom: 3rem;
-      }
-
-      /* --- Overlay UI Elements --- */
-      .content-description:not(.expanded)::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 80px;
-        background: linear-gradient(transparent, #ffffff);
-        z-index: 1;
-        pointer-events: none;
-      }
-
-      .prj-more {
-        position: absolute;
-        bottom: 1rem;
-        right: 1.5rem;
-        width: max-content;
-        background: black;
-        border: 1px solid #0077ff;
-        color: #0077ff;
-        padding: 5px 12px;
-        border-radius: 4px;
-        cursor: pointer;
-        z-index: 10;
-      }
-
-      .carousel-content:nth-child(even) .prj-more {
-        right: auto;
-        left: 1.5rem;
-      }
-
-      /* --- Navigation Buttons --- */
-      .nav-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        border: none;
-        border-radius: 10%;
-        width: 40px;
-        height: 56px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 100;
-        transition: all 0.3s ease;
-        margin: 0 10px;
-      }
-
-      .nav-btn svg {
-        width: 24px;
-        height: 24px;
-        stroke: white;
-      }
-
-      .nav-btn:hover {
-        background: rgba(0, 0, 0, 0.8);
-        transform: translateY(-50%) scale(1.1);
-      }
-
-      #prevBtn {
-        left: 0;
-      }
-      #nextBtn {
-        right: 0;
-      }
-
-      /* --- Pagination Dots --- */
-      .dots-container {
-        position: absolute;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 10px;
-        z-index: 20;
-      }
-
-      .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: rgba(0, 0, 0, 0.5);
-        transition: all 0.3s ease;
-        cursor: pointer;
-      }
-
-      .dot.active {
-        background-color: #ffffff;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-      }
-    </style>
+    <link rel="stylesheet" href="style/topnav.css" />
+    <link rel="stylesheet" href="style/cont0.css" />
+    <link rel="stylesheet" href="style/about-me.css" />
+    <link rel="stylesheet" href="style/skills.css" />
+    <link rel="stylesheet" href="style/carousel.css" />
   </head>
   <body>
     <div class="nav-overlay" id="navOverlay"></div>
@@ -449,40 +91,297 @@
         </ul>
       </div>
     </nav>
-    <section>
-      <p>
-        I am <strong>Joven Christian D. Santos</strong>, a
-        <strong>Junior Full-Stack Developer</strong> focused on building
-        complete web applications from start to testing. I can do a professional
-        job on either <strong>front-end</strong>, <strong>back-end</strong>, and
-        <strong>QA testing.</strong>
+
+    <div class="spacer"></div>
+    <section id="about-me-cont">
+      <h2 class="section-title">Joven Christian D. Santos</h2>
+      <p id="about-me">
+        I am a
+        <strong>Junior Full-Stack Developer</strong> dedicated to building
+        scalable full-stack solutions with a focus on clean architecture and
+        automated testing. I handle <strong>front-end</strong>,
+        <strong>back-end</strong>, and <strong>QA testing</strong> with a
+        professional approach.
       </p>
+      <section class="e-sign">
+        <svg viewBox="0 0 1024 1024" class="external-icon">
+          <path
+            fill="currentColor"
+            d="
+M1.000000,807.466125 
+	C6.374207,801.093933 10.403671,794.142334 15.975083,788.346619 
+	C29.423744,774.356628 44.652500,762.465942 59.840801,750.531189 
+	C77.910118,736.332581 95.904488,722.018311 114.381111,708.362732 
+	C147.457214,683.917175 179.524689,658.109375 213.474304,634.851074 
+	C217.874786,631.836304 219.665634,628.434387 219.876343,622.947205 
+	C220.282867,612.360107 221.803238,601.812378 222.948944,591.257874 
+	C224.472076,577.226624 225.837631,563.172241 227.713715,549.187134 
+	C229.785934,533.739807 231.954178,518.284302 234.808182,502.967896 
+	C239.125900,479.796082 243.068893,456.544006 249.267288,433.741699 
+	C255.117233,412.221252 261.757141,390.987976 269.385864,370.028198 
+	C278.788696,344.193848 289.082397,318.774017 302.011841,294.478088 
+	C305.290710,288.316650 308.594238,282.167511 311.968719,276.058197 
+	C313.366791,273.527100 315.732544,271.780426 318.538818,272.476501 
+	C323.346924,273.669098 328.337463,274.459412 332.721527,277.054932 
+	C334.662811,278.204193 335.731110,279.767700 335.071686,282.015869 
+	C334.358856,284.446289 332.539734,283.940979 330.603821,283.648712 
+	C322.109833,282.366333 320.095459,283.607513 316.027008,291.254395 
+	C297.675171,325.747742 283.401154,361.914520 271.279694,399.002899 
+	C258.442139,438.282379 249.410736,478.401642 243.106628,519.227356 
+	C239.531738,542.378601 236.657455,565.596558 234.116409,588.865234 
+	C232.954147,599.508423 232.287521,610.205688 231.306030,621.956787 
+	C236.850067,618.021790 241.526443,614.709778 246.195572,611.387512 
+	C299.452271,573.493713 355.179626,539.466248 411.348206,506.151428 
+	C438.848145,489.840607 466.457489,473.689056 494.408997,458.170990 
+	C532.130310,437.229004 570.833679,418.139832 610.457214,401.084229 
+	C650.501282,383.847595 690.958679,367.591217 731.906006,352.549622 
+	C759.075989,342.569031 786.440674,333.226074 814.203979,325.113403 
+	C839.720459,317.657227 865.458984,310.962830 891.074097,303.840851 
+	C900.158752,301.315002 909.168213,298.518372 918.269531,295.828339 
+	C920.272888,299.427673 918.523315,301.167084 915.967529,302.563416 
+	C907.457764,307.212585 898.246521,310.125427 889.121948,313.203888 
+	C852.546570,325.543823 814.822815,334.025848 778.180786,346.153320 
+	C747.215027,356.402069 716.751099,368.009399 686.294983,379.662811 
+	C644.765808,395.553162 604.153076,413.529266 563.969604,432.512421 
+	C531.138733,448.022095 499.484680,465.760803 467.777618,483.400024 
+	C429.205383,504.858368 391.546082,527.852661 353.964203,550.975525 
+	C323.181946,569.914856 292.642609,589.232544 263.103546,610.087280 
+	C255.486649,615.464844 248.138077,621.355591 240.031662,625.871399 
+	C230.852951,630.984558 229.046188,638.882568 228.212555,648.213196 
+	C225.603287,677.418030 219.004639,705.683960 205.701172,731.990967 
+	C191.539215,759.995605 169.540939,780.665649 143.169891,797.067505 
+	C121.689102,810.427795 99.201988,821.545837 74.275360,826.713989 
+	C53.731422,830.973511 32.997383,830.451538 12.313562,827.308533 
+	C8.286225,826.696533 4.668379,825.086548 1.300336,822.173096 
+	C1.000000,817.310730 1.000000,812.621521 1.000000,807.466125 
+M71.646217,753.178101 
+	C64.933464,758.642578 58.164623,764.039917 51.520050,769.586060 
+	C39.103916,779.949768 27.142553,790.779358 17.226999,803.670959 
+	C9.857682,813.252136 11.015894,817.142151 22.207535,818.509399 
+	C41.037891,820.809875 59.852467,819.513794 78.149628,815.037964 
+	C104.127167,808.683411 127.768005,796.824768 149.420670,781.134460 
+	C171.123337,765.407898 188.431458,746.017944 199.137650,721.116272 
+	C206.880112,703.107971 211.138718,684.163879 214.644104,665.012024 
+	C215.943604,657.912109 216.774078,650.726379 217.818451,643.579773 
+	C217.425705,643.323303 217.032944,643.066895 216.640198,642.810425 
+	C167.887573,678.648254 119.529747,715.010132 71.646217,753.178101 
+z"
+          />
+          <path
+            fill="currentColor"
+            d="
+M673.561462,247.431824 
+	C693.722412,238.341614 714.577393,232.708969 735.738342,228.196808 
+	C743.701050,226.498917 751.907227,226.006287 760.065918,226.854752 
+	C770.252686,227.914139 773.342590,233.156601 769.442139,242.559296 
+	C764.064697,255.522598 756.400513,267.275574 749.734924,279.557465 
+	C749.138550,280.656189 747.877869,281.516632 748.357666,283.398041 
+	C756.755859,281.190216 763.606018,276.112610 770.726135,271.688263 
+	C783.654236,263.654938 794.629028,253.863052 800.609314,239.197968 
+	C802.984863,233.372574 808.309204,229.743622 814.190918,227.272552 
+	C821.105225,224.367661 828.154785,221.811798 835.395935,219.921997 
+	C839.883301,218.750885 842.692627,216.477463 845.126343,212.361206 
+	C853.134033,198.816971 865.626099,190.237000 879.697632,184.065521 
+	C885.323975,181.597900 896.177551,187.790115 898.380188,193.618103 
+	C899.883972,197.597031 897.162659,199.036087 894.547241,201.122375 
+	C883.149963,210.213959 869.436768,215.377106 857.396423,223.371887 
+	C853.997864,225.628525 853.757568,227.432251 855.318237,231.042267 
+	C859.279358,240.205139 866.099609,246.884872 873.135498,253.531006 
+	C878.063904,258.186340 883.619202,262.150085 888.007141,267.411774 
+	C891.392944,271.471832 890.818115,274.859772 885.574036,275.616364 
+	C872.057922,277.566315 859.095764,281.893036 845.697144,284.285858 
+	C840.149170,285.276672 834.706482,286.868896 829.151245,287.803101 
+	C825.916077,288.347168 821.081604,290.136078 819.969910,286.039551 
+	C818.896240,282.083069 823.760925,280.803345 826.940918,279.683746 
+	C839.650269,275.209137 852.525024,271.270569 865.730469,268.491638 
+	C867.137329,268.195587 868.498413,267.681915 870.418518,267.108612 
+	C857.527039,256.551239 846.831421,245.001846 841.624878,228.591675 
+	C832.368530,231.045288 823.286560,233.981049 814.776672,238.527557 
+	C813.281067,239.326630 812.424927,240.928131 811.870361,242.502029 
+	C806.200256,258.594666 794.112244,269.231476 780.711975,278.526520 
+	C770.875183,285.349701 760.713867,291.811615 748.816345,294.663025 
+	C747.058594,295.084259 745.203979,295.310730 743.398560,295.287537 
+	C735.250610,295.182831 731.430359,288.772186 735.432129,281.626648 
+	C742.101746,269.717438 748.996643,257.934387 755.796936,246.098358 
+	C756.211914,245.376160 756.718079,244.691132 757.027100,243.926315 
+	C757.689819,242.286057 759.292908,240.633514 758.142944,238.835434 
+	C756.886414,236.870743 754.573914,237.307510 752.619690,237.458923 
+	C734.760132,238.842926 717.598389,243.415451 700.631653,248.890564 
+	C684.425964,254.120056 668.918335,260.916321 653.943298,269.025360 
+	C649.907227,271.210938 646.981384,273.782684 645.580627,278.293304 
+	C641.930969,290.045868 638.048645,301.726562 634.213928,313.421051 
+	C633.386108,315.945557 632.612244,318.535370 631.389404,320.873291 
+	C628.474670,326.446198 627.185364,326.968933 621.756653,324.072144 
+	C618.911072,322.553741 616.814026,323.009186 614.437073,324.664490 
+	C605.285156,331.037811 596.032959,337.255798 586.401672,342.900116 
+	C582.633606,345.108368 578.754395,346.924011 574.463806,347.807587 
+	C566.904175,349.364349 560.167114,348.514008 555.541321,341.401642 
+	C553.483032,338.236969 551.341248,337.770111 548.254883,340.473541 
+	C536.737427,350.562073 525.097900,360.512878 513.414490,370.409393 
+	C509.512146,373.714844 505.053162,376.060211 499.693390,375.079285 
+	C494.579895,374.143433 490.334839,368.959290 489.727386,363.265686 
+	C489.555115,361.651215 489.550262,360.018921 489.466064,358.344147 
+	C486.846527,358.071472 486.262329,360.169830 485.102264,361.406219 
+	C476.899872,370.148529 468.980835,379.171631 457.346313,383.714600 
+	C450.434784,386.413452 444.256622,385.265350 438.699310,379.645782 
+	C434.941986,375.846375 433.989746,370.432251 437.457031,364.371155 
+	C445.501007,350.309418 454.954285,337.127228 467.421722,326.664215 
+	C477.251312,318.414948 484.164246,318.861511 494.380585,326.794617 
+	C496.664337,328.567993 498.966858,329.906830 501.780121,330.677032 
+	C508.692261,332.569336 510.138519,335.759949 506.733307,342.572876 
+	C503.759003,348.523773 502.588806,354.800140 501.960266,361.275452 
+	C501.899872,361.897400 502.100616,362.544708 502.168060,363.083984 
+	C504.549377,364.400574 505.780823,362.692780 507.083954,361.547089 
+	C517.338135,352.531525 527.578613,343.500031 537.773071,334.417053 
+	C541.808228,330.821899 546.328430,328.197754 551.475342,326.514313 
+	C555.743530,325.118286 558.660522,326.410553 561.400940,329.889587 
+	C568.641907,339.082245 568.868164,339.208282 579.116089,333.890076 
+	C589.437805,328.533569 598.803894,321.629272 608.583557,314.897461 
+	C605.747253,311.580872 603.043091,308.679108 600.633240,305.550690 
+	C594.163208,297.151459 595.630493,288.508270 604.815491,283.197479 
+	C614.032837,277.868011 623.493469,272.942322 632.994690,268.130341 
+	C636.120117,266.547424 637.913635,264.498230 638.674622,261.140717 
+	C643.416199,240.221298 648.927185,219.503952 655.938110,199.224686 
+	C659.680542,188.399658 664.829041,178.118759 668.429138,167.199753 
+	C670.497192,160.927460 681.674011,159.579880 686.273071,164.518448 
+	C688.591492,167.008041 688.030273,170.885513 684.633301,171.754776 
+	C678.880554,173.226837 676.624329,177.627121 675.073120,182.294205 
+	C670.926636,194.770050 664.995300,206.589157 661.625244,219.338181 
+	C658.567139,230.907196 655.466675,242.465012 652.428528,254.039230 
+	C652.229248,254.798386 652.402588,255.655319 652.402588,257.501373 
+	C659.675964,254.033798 666.444153,250.807007 673.561462,247.431824 
+M473.779236,357.281067 
+	C480.095795,351.078247 484.785370,343.398529 491.967926,337.685577 
+	C487.407227,338.497437 484.262512,336.312195 481.315887,333.885681 
+	C479.513214,332.401215 477.970642,331.926636 476.027252,333.528503 
+	C464.559631,342.980652 455.343719,354.249817 448.787445,367.596375 
+	C447.936127,369.329437 446.226868,371.624420 448.309906,373.555145 
+	C450.295807,375.395782 452.431458,373.759766 454.344727,372.967560 
+	C462.116516,369.749542 467.693359,363.747589 473.779236,357.281067 
+M621.864258,308.608551 
+	C628.184326,300.756256 629.083008,290.893646 631.981567,281.360352 
+	C623.679871,285.066711 615.169495,287.720581 608.256042,293.523987 
+	C607.143799,294.457703 607.192383,295.877289 607.497620,297.246094 
+	C608.615845,302.260681 615.702515,308.261902 621.864258,308.608551 
+z"
+          />
+          <path
+            fill="currentColor"
+            d="
+M441.198425,254.736313 
+	C448.893890,252.631439 454.673096,254.563309 458.905426,260.967255 
+	C460.217316,262.952332 460.823883,264.787476 459.197845,266.772339 
+	C439.457184,262.684235 424.487701,272.590210 409.939636,283.384430 
+	C397.087708,292.920135 385.135284,303.499756 374.352142,315.380096 
+	C370.507904,319.615479 367.024780,324.116180 364.673492,329.262115 
+	C360.884766,337.553833 364.078705,344.962280 368.943817,351.630066 
+	C376.813904,362.416260 386.341675,371.711151 395.873383,381.035736 
+	C406.802307,391.727081 406.562683,401.265839 395.763855,412.109406 
+	C381.824066,426.106934 364.931885,433.153137 345.156921,433.338135 
+	C338.850983,433.397125 332.595306,434.164948 326.369537,435.151337 
+	C326.040588,435.203461 325.712646,435.273163 325.381470,435.298645 
+	C321.861328,435.570038 318.622406,434.734314 316.483063,431.847595 
+	C315.045166,429.907349 315.954498,427.804321 317.173767,425.812012 
+	C319.200073,422.500885 322.221100,421.630310 325.743500,421.982086 
+	C338.048553,423.211090 350.222900,422.561920 362.265717,419.688599 
+	C371.215240,417.553345 378.893585,413.006470 385.862427,407.165924 
+	C387.251129,406.002045 388.502350,404.605164 389.566284,403.134369 
+	C394.792145,395.910034 394.872833,393.932343 388.532837,387.727112 
+	C379.855011,379.233673 371.166351,370.791290 363.556732,361.285919 
+	C359.996674,356.839020 356.722717,352.268097 354.338715,347.080811 
+	C350.082001,337.818817 351.266144,329.056366 356.525421,320.550751 
+	C363.067017,309.971222 371.588531,301.153748 380.471954,292.553436 
+	C394.592133,278.883301 410.160126,267.369141 428.095184,259.242004 
+	C432.162079,257.399139 436.537262,256.236542 441.198425,254.736313 
+z"
+          />
+        </svg>
+      </section>
     </section>
     <div class="spacer"></div>
-    <section>
-      <p class="title">Projects</p>
-      [3 projects then view all at the bottom] [project cards have a project
-      photo with classification whether they have front, back or qa---tags of
-      good tech stack used, then ] [ on the top of this card is the title (can
-      be clicked to go to the case study) next is a div which contains 2 buttons
-      [Read Case Study](can be clicked to go to the case study) or [View Live
-      Project](can be clicked to go to the live project/new tab) the buttom part
-      are a brief description with a fixed height, can click more to extend]
+    <section id="skills-section" class="page-wrapper">
+      <div class="skills-label">
+        <h2>Skills</h2>
+      </div>
+
+      <div class="skills-content">
+        <div class="skill-entry">
+          <div class="category">Front-end</div>
+          <div class="skills-list">
+            <span>React</span>
+            <span>Next.js</span>
+            <span>React</span>
+            <span>Next.js</span>
+          </div>
+        </div>
+
+        <div class="skill-entry">
+          <div class="category">Back-end</div>
+          <div class="skills-list">
+            <span>React</span>
+            <span>Next.js</span>
+            <span>React</span>
+            <span>Next.js</span>
+          </div>
+        </div>
+
+        <div class="skill-entry">
+          <div class="category">QA & Testing</div>
+          <div class="skills-list">
+            <span>React</span>
+            <span>Next.js</span>
+            <span>React</span>
+            <span>Next.js</span>
+          </div>
+        </div>
+
+        <div class="skill-entry">
+          <div class="category">DevTools</div>
+          <div class="skills-list">
+            <span>React</span>
+            <span>Next.js</span>
+            <span>React</span>
+            <span>Next.js</span>
+          </div>
+        </div>
+      </div>
     </section>
-    <section>
+    <div class="spacer"></div>
+    <section id="featured-projects">
+      <div class="section-header">
+        <h2 class="section-title">Featured Projects</h2>
+        <a href="/all-projects" class="section-link"> View All </a>
+      </div>
       <div class="carousel-container">
         <div class="carousel-slide">
           <div class="carousel-content">
             <img src="o1.jpg" alt="3" />
             <div class="content-description">
-              <div class="prj-title">Example Title</div>
+              <div class="prj-title"><a href="">Example Title</a></div>
               <div class="prj-btns">
-                <a href="" class="prj-read"></a>
-                <a href="" class="prj-live"></a>
+                <a href="" class="prj-read">Read Case Study</a>
+                <a href="" class="prj-live">
+                  View Live Project
+                  <svg
+                    class="external-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    ></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
               </div>
               <div class="prj-tags">
-                <span class="prj-cycle"></span>
-                <span class="prj-tech"></span>
+                <span class="prj-cycle">Full-stack</span>
+                <span class="prj-tech">Techstack</span>
               </div>
               <div class="prj-desc">Example Description</div>
               <button class="prj-more">Show more</button>
@@ -491,14 +390,31 @@
           <div class="carousel-content">
             <img src="o1.jpg" alt="3" />
             <div class="content-description">
-              <div class="prj-title">Example Title</div>
+              <div class="prj-title"><a href="">Example Title</a></div>
               <div class="prj-btns">
-                <a href="" class="prj-read"></a>
-                <a href="" class="prj-live"></a>
+                <a href="" class="prj-read">Read Case Study</a>
+                <a href="" class="prj-live">
+                  View Live Project
+                  <svg
+                    class="external-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    ></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
               </div>
               <div class="prj-tags">
-                <span class="prj-cycle"></span>
-                <span class="prj-tech"></span>
+                <span class="prj-cycle">Full-stack</span>
+                <span class="prj-tech">Techstack</span>
               </div>
               <div class="prj-desc">Example Description</div>
               <button class="prj-more">Show more</button>
@@ -507,14 +423,31 @@
           <div class="carousel-content">
             <img src="o1.jpg" alt="3" />
             <div class="content-description">
-              <div class="prj-title">Example Title</div>
+              <div class="prj-title"><a href="">Example Title</a></div>
               <div class="prj-btns">
-                <a href="" class="prj-read"></a>
-                <a href="" class="prj-live"></a>
+                <a href="" class="prj-read">Read Case Study</a>
+                <a href="" class="prj-live">
+                  View Live Project
+                  <svg
+                    class="external-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    ></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
               </div>
               <div class="prj-tags">
-                <span class="prj-cycle"></span>
-                <span class="prj-tech"></span>
+                <span class="prj-cycle">Full-stack</span>
+                <span class="prj-tech">Techstack</span>
               </div>
               <div class="prj-desc">
                 Example Description Lorem ipsum dolor sit amet consectetur
@@ -674,8 +607,6 @@
           } else {
             container.style.height = "250px";
           }
-
-          // Note: We don't call updateCarousel() here because it would trigger the reset!
         });
       });
 

@@ -1,0 +1,12 @@
+section {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid #000;
+  border-radius: 8px;
+}
+
+.spacer {
+  height: 1rem;
+}
