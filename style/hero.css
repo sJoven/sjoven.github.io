@@ -15,10 +15,10 @@
   background-position: center;
   background-repeat: no-repeat;
   color: white;
-  min-height: 80vh;
+  min-height: 60vh;
   display: flex;
   align-items: center;
-  padding: 2rem 3rem 0;
+  padding: 2rem 3rem 2rem;
   width: 100%;
 }
 
@@ -72,6 +72,7 @@
   width: 100%;
   align-items: center;
   justify-content: center;
+  margin-bottom: 0;
 }
 
 .hero-btns a {

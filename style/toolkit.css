@@ -1,5 +1,51 @@
-#tech-ribbon h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #333;
+#tech-ribbon {
+  color: #fff;
+  background-color: rgb(25, 26, 28);
+  width: 100%;
+  padding-top: 0;
+}
+
+#tech-ribbon span {
+  color: rgb(115, 115, 115);
+}
+
+#tech-ribbon .icon-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  max-width: 280px;
+
+  margin: 0 auto;
+  padding: 0.5rem 0;
+}
+
+#tech-ribbon .icon-wrapper img {
+  height: 2rem;
+  width: auto;
+  opacity: 0.5;
+}
+
+#tech-ribbon .icon-wrapper img {
+  height: 2rem;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  flex: 0 0 auto;
+}
+
+#tech-ribbon .icon-wrapper img:hover {
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  #tech-ribbon .icon-wrapper {
+    grid-template-columns: repeat(10, 1fr);
+    max-width: 1200px;
+    gap: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
