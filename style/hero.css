@@ -1,0 +1,134 @@
+/* --- 1. DEFAULT (Mobile Styles) --- */
+.hero {
+  background-color: rgb(25, 26, 28);
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(25, 26, 28, 0.2) 0%,
+      rgba(25, 26, 28, 0.2) 60%,
+      rgba(25, 26, 28, 0.4) 70%,
+      rgba(25, 26, 28) 85%,
+      rgb(25, 26, 28) 100%
+    ),
+    url("../res/img/hero-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: 2rem 3rem 0;
+  width: 100%;
+}
+
+.hero-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 2rem;
+}
+
+/* Image on top for mobile */
+.hero-image {
+  order: -1;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}
+
+.image-placeholder {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 20px;
+}
+
+.image-placeholder img {
+  width: 100%;
+  border-radius: 10rem;
+  border: 0.125rem solid rgb(115, 115, 115);
+}
+
+.hero-content h2 {
+  font-size: 2rem;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  font-weight: 100;
+}
+
+.hero-content h2 .highlight {
+  font-weight: 600;
+}
+
+.hero-btns {
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-btns a {
+  width: max-content;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 100;
+  text-decoration: none;
+
+  border: 1px solid rgb(115, 115, 115);
+  color: rgb(115, 115, 115);
+
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.hero-btns a:hover {
+  color: #fff;
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* --- 2. TABLET / DESKTOP (The "Unlock") --- */
+/* We use min-width now. This applies to screens 768px and wider. */
+@media (min-width: 768px) {
+  .hero-container {
+    flex-direction: row; /* Switch to side-by-side */
+    text-align: left; /* Align text back to the left */
+    gap: 40px;
+  }
+
+  .hero-image {
+    order: 1; /* Move image back to the right */
+    flex: 1;
+  }
+
+  .hero-content {
+    flex: 1;
+  }
+
+  .hero-content h1 {
+    font-size: 3.5rem;
+  }
+
+  .hero-btns {
+    flex-direction: row; /* Buttons sit side-by-side on desktop */
+  }
+}
