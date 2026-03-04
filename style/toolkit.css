@@ -2,11 +2,18 @@
   color: #fff;
   background-color: rgb(25, 26, 28);
   width: 100%;
+  max-width: 100%;
   padding-top: 0;
 }
 
 #tech-ribbon span {
   color: rgb(115, 115, 115);
+}
+
+#tech-ribbon div.ribbon-cont {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 #tech-ribbon .icon-wrapper {

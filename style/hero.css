@@ -18,13 +18,14 @@
   min-height: 60vh;
   display: flex;
   align-items: center;
-  padding: 2rem 3rem 2rem;
   width: 100%;
+  max-width: 100%;
 }
 
 .hero-container {
   width: 100%;
   max-width: 1200px;
+  padding: 2rem 3rem 2rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -108,7 +109,6 @@
 }
 
 /* --- 2. TABLET / DESKTOP (The "Unlock") --- */
-/* We use min-width now. This applies to screens 768px and wider. */
 @media (min-width: 768px) {
   .hero-container {
     flex-direction: row; /* Switch to side-by-side */

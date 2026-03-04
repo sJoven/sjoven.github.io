@@ -4,30 +4,77 @@
 }
 
 #about-me-cont {
-  display: grid;
-  grid-template-columns: 1fr 1.618fr;
-  align-items: start;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem 0 0;
 }
+
+#about-me-cont .about-me-title-grp {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 1rem;
+}
+
+#about-me-cont .about-me-title-grp * {
+  margin: 0;
+}
+
 #about-me-cont .section-title {
   font-size: 1.25rem;
-  font-weight: 700;
-  color: #333;
-  margin: 0;
+  font-weight: 100;
+  color: #fff;
 }
 
-#about-me {
-  text-indent: 3ch;
-  text-align: justify;
-  margin: 0;
+#about-me-cont .section-subtitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(124, 124, 126);
+}
+
+.about-me-content {
+  background-color: rgb(39, 41, 44);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: white;
   padding: 1rem;
-
-  border: 1px solid #000;
-  border-radius: 8px;
 }
 
-@media (max-width: 768px) {
+.about-me-content .sub-header {
+  font-weight: 550;
+  font-size: 0.875rem;
+  color: #fff;
+  text-transform: capitalize;
+  display: inline-block;
+  margin: 1rem 0;
+}
+
+#about-me-p {
+  text-align: justify;
+  color: rgb(124, 124, 126);
+  font-size: 0.875rem;
+}
+
+#about-me-cont .sign-container {
+  text-align: right;
+  width: 100%;
+}
+
+.sign-container img {
+  filter: invert(1);
+  width: 8rem;
+}
+
+@media (min-width: 768px) {
   #about-me-cont {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 2.618fr;
+    padding: 1rem;
+  }
+
+  .about-me-content {
+    padding: 2rem;
+    padding-bottom: 1rem;
   }
 }

@@ -1,6 +1,7 @@
 const slide = document.querySelector(".carousel-slide");
 const contents = document.querySelectorAll(".carousel-content");
 const dots = document.querySelectorAll(".dot");
+const projectLinks = document.querySelectorAll(".prj-title a");
 
 let counter = 0;
 
@@ -50,3 +51,7 @@ document.querySelectorAll(".prj-more").forEach((button) => {
 
 window.addEventListener("resize", updateCarousel);
 updateCarousel();
+
+projectLinks.forEach((link) => {
+  link.setAttribute("title", link.textContent.trim());
+});
