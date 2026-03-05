@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="../style/cont0.css" /> -->
+    <link rel="stylesheet" href="../style/topnav.css" />
+  </head>
+  <body>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav id="top-nav">
+      <div class="nav-container">
+        <div class="logo">JOVEN SANTOS</div>
+
+        <button class="menu-toggle" id="menuOpen" aria-label="Open Menu">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <ul class="nav-links" id="navDrawer">
+          <div class="drawer-top-container">
+            <span class="in-drawer logo">SANTOS</span>
+            <button class="menu-close" id="menuClose" aria-label="Close Menu">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          <li><a href="/" class="active">HOME</a></li>
+          <li><a href="/projects">PROJECTS</a></li>
+          <li>
+            <a href="/about" target="_blank">
+              RESUME
+              <svg
+                class="external-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                ></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="/contact" target="_blank"> CONTACT ME </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <h2>
+      Mobile: category > category opt > skills/keywords > skill opt > apply >
+      results
+    </h2>
+    <h2></h2>
+    <div class="filter-container">
+      <div class="filter-section">
+        <h4>Category</h4>
+        <label
+          ><input type="checkbox" class="cat-check" value="Front-end" />
+          Front-end</label
+        >
+        <label
+          ><input type="checkbox" class="cat-check" value="Back-end" />
+          Back-end</label
+        >
+        <label
+          ><input type="checkbox" class="cat-check" value="Quality Assurance" />
+          QA</label
+        >
+      </div>
+
+      <div class="filter-section">
+        <h4>Skills / Keywords</h4>
+        <div class="search-wrapper">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Click or type to see skills..."
+            autocomplete="off"
+          />
+          <div id="autocompleteList" class="autocomplete-items"></div>
+        </div>
+        <div id="tagContainer" class="tag-container"></div>
+      </div>
+
+      <button id="applyBtn">Apply Filters</button>
+    </div>
+
+    <div id="projectGrid" class="project-grid"></div>
+    <script src="../script/topnav.js"></script>
+    <script>
+      const projects = [
+        { name: "Alpha", category: "Front-end", tags: ["React", "CSS"] },
+        { name: "Beta", category: "Back-end", tags: ["Node", "SQL"] },
+        {
+          name: "Gamma",
+          category: "Quality Assurance",
+          tags: ["Jest", "Selenium"],
+        },
+        { name: "Delta", category: "Front-end", tags: ["Vue", "Tailwind"] },
+      ];
+
+      const availableTags = [
+        "React",
+        "CSS",
+        "Node",
+        "SQL",
+        "Jest",
+        "Selenium",
+        "Vue",
+        "Tailwind",
+      ];
+      let activeTags = [];
+
+      const searchInput = document.getElementById("searchInput");
+      const tagContainer = document.getElementById("tagContainer");
+      const applyBtn = document.getElementById("applyBtn");
+      const list = document.getElementById("autocompleteList");
+
+      // --- 1. Search & Tag Logic ---
+
+      // Helper to show suggestions (used by focus, tab, and input)
+      function showSuggestions() {
+        const val = searchInput.value.toLowerCase();
+        list.innerHTML = "";
+
+        // Show all available tags if input is empty, otherwise filter
+        const matches = availableTags.filter(
+          (t) => t.toLowerCase().includes(val) && !activeTags.includes(t),
+        );
+
+        if (matches.length > 0) {
+          list.style.display = "block"; // Show the overflow container
+          matches.forEach((match) => {
+            const div = document.createElement("div");
+            div.textContent = match;
+            div.onclick = () => addTag(match);
+            list.appendChild(div);
+          });
+        } else {
+          list.style.display = "none";
+        }
+      }
+
+      // Trigger when user clicks or tabs into the search bar
+      searchInput.addEventListener("focus", showSuggestions);
+
+      // Trigger when user types
+      searchInput.addEventListener("input", showSuggestions);
+
+      // Handle Enter Key
+      searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const firstMatch = list.querySelector("div");
+          if (firstMatch) firstMatch.click();
+        }
+      });
+
+      // Close suggestions when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".search-wrapper")) {
+          list.style.display = "none";
+        }
+      });
+
+      function addTag(tag) {
+        activeTags.push(tag);
+        renderTags();
+        searchInput.value = "";
+        list.innerHTML = "";
+        list.style.display = "none";
+      }
+
+      function renderTags() {
+        tagContainer.innerHTML = activeTags
+          .map(
+            (t) => `
+      <span class="tag">${t} 
+          <svg onclick="removeTag('${t}')" viewBox="0 0 24 24" width="12" height="12"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </span>
+  `,
+          )
+          .join("");
+      }
+
+      window.removeTag = (tag) => {
+        activeTags = activeTags.filter((t) => t !== tag);
+        renderTags();
+      };
+
+      // --- 2. The Filter Engine ---
+
+      applyBtn.onclick = () => {
+        const checkedCats = Array.from(
+          document.querySelectorAll(".cat-check:checked"),
+        ).map((c) => c.value);
+
+        const filtered = projects.filter((p) => {
+          // Category Logic: If none checked or all checked, show all
+          const catMatch =
+            checkedCats.length === 0 ||
+            checkedCats.length === 3 ||
+            checkedCats.includes(p.category);
+
+          // Tag Logic: Project must contain ALL active tags
+          const tagMatch =
+            activeTags.length === 0 ||
+            activeTags.every((t) => p.tags.includes(t));
+
+          return catMatch && tagMatch;
+        });
+
+        displayProjects(filtered);
+      };
+
+      function displayProjects(data) {
+        const grid = document.getElementById("projectGrid");
+        grid.innerHTML = data
+          .map(
+            (p) => `
+      <div class="project-card">
+          <h3>${p.name}</h3>
+          <p><strong>Type:</strong> ${p.category}</p>
+          <small><strong>Tags:</strong> ${p.tags.join(", ")}</small>
+      </div>
+  `,
+          )
+          .join("");
+      }
+
+      // Initial Load
+      displayProjects(projects);
+    </script>
+  </body>
+</html>
