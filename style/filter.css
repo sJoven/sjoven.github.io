@@ -1,0 +1,232 @@
+#filter .section-title {
+  font-size: 1.25rem;
+  font-weight: 100;
+  color: #fff;
+  margin: 0;
+}
+
+#filter .filter-section {
+  padding: 0.4rem 0;
+}
+
+#filter .filter-section h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(124, 124, 126);
+}
+
+#filter .filter-container,
+#projectGrid .project-card,
+#featured-projects .carousel-content {
+  background-color: rgb(39, 41, 44);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: white;
+  padding: 1rem;
+
+  margin-bottom: 1rem;
+}
+
+#filter .filter-opt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+#filter .filter-opt label {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  gap: 0.4rem;
+}
+
+#filter input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background-color: #1e1f21;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+}
+
+#filter input[type="checkbox"]:checked {
+  background-color: #555; /* Subtle highlight */
+  border-color: #888;
+}
+
+/* The checkmark symbol */
+#filter input[type="checkbox"]:checked::after {
+  content: "✔";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: white;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+#searchInput {
+  width: 100%;
+  background-color: #1e1f21;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0.75rem;
+  color: white;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+#searchInput:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+#filter label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: rgb(124, 124, 126);
+  transition: color 0.2s;
+}
+
+#filter label:hover {
+  color: #fff;
+}
+/* --- 4. Apply Button --- */
+#applyBtn {
+  flex: 1;
+  text-align: center;
+  width: 100%;
+  padding: 0.5rem 0;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  transition: all 0.3s ease;
+  position: relative;
+
+  background-color: rgb(0, 119, 255);
+  color: rgba(255, 255, 255, 0.8);
+  border: 0;
+}
+
+#applyBtn:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(53, 148, 255);
+}
+
+#applyBtn:active {
+  transform: scale(0.98);
+}
+
+/* --- 5. Tags & Autocomplete --- */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 0.25rem;
+}
+
+.tag:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tag svg {
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+  fill: rgba(255, 255, 255, 0.5);
+  transition: all 0.2s ease;
+}
+
+.tag svg:hover {
+  fill: #fff;
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px rgba(255, 50, 50, 0.3));
+}
+
+.autocomplete-items {
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  background-color: rgb(33, 34, 36);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgb(124, 124, 126);
+  border-top: none;
+  position: absolute;
+  font-size: 0.875rem;
+  z-index: 99;
+  width: 100%;
+
+  max-height: 200px;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+.autocomplete-items div {
+  line-height: 2rem;
+  padding-left: 1rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.autocomplete-items div:hover {
+  color: #fff;
+  background-color: rgb(46, 48, 51);
+}
+
+.autocomplete-items::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.autocomplete-items::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.autocomplete-items::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.autocomplete-items::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (min-width: 768px) {
+  /* #skills-section {
+    display: grid;
+    grid-template-columns: 1fr 2.618fr;
+    padding: 1rem;
+  } */
+
+  #filter .filter-container,
+  #projectGrid .project-card {
+    padding: 2rem;
+  }
+}
