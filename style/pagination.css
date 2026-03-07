@@ -1,0 +1,37 @@
+.pagination-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  margin-top: 1.5rem; /* Slightly reduced margin */
+  padding-bottom: 2rem;
+}
+
+.pagination-dots {
+  color: rgb(124, 124, 126);
+  padding: 4px 6px; /* Reduced padding */
+  font-family: Arial, sans-serif;
+  font-size: 0.875rem; /* Match main text */
+  align-self: center; /* Changed from flex-end to center for better alignment */
+  font-weight: 800;
+}
+
+.page-btn {
+  background: transparent;
+  border: 1px solid rgb(124, 124, 126);
+  font-size: 0.875rem; /* Matches your main text */
+  color: rgb(124, 124, 126);
+  padding: 0.25rem 0.6rem; /* Narrower padding for a smaller feel */
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: Arial, sans-serif;
+  min-width: 32px; /* Reduced from 40px */
+  text-align: center;
+  border-radius: 0.25rem;
+}
+
+.page-btn.active,
+.page-btn:hover {
+  background: rgb(46, 48, 51);
+  color: white;
+  border-color: white;
+}

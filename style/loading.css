@@ -1,0 +1,60 @@
+/* Fade-in effect for the container */
+#projects-stacked-container {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#projects-stacked-container.visible {
+  opacity: 1;
+}
+
+/* Spinner styling */
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.spinner {
+  animation: rotate 2s linear infinite;
+  width: 50px;
+  height: 50px;
+}
+
+.spinner circle {
+  stroke: #3498db; /* Change to your primary color */
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+.no-results {
+  font-family: Arial, sans-serif, "Helvetica Neue", Helvetica;
+  font-size: 1rem;
+  color: white;
+  text-align: center;
+  width: 100%;
+  padding: 3rem 0;
+  opacity: 0.8;
+}
